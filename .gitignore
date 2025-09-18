@@ -1,0 +1,12 @@
+# .gitignore
+# Entorno virtual
+venv/
+
+# Archivos de Python generados
+*.pyc
+__pycache__/
+
+# Archivos de empaquetado
+dist/
+build/
+*.egg-info/
