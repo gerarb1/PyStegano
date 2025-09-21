@@ -3,6 +3,7 @@ from PyStegano.core import Stegano
 from PIL import Image
 import os
 
+
 @pytest.fixture
 def create_test_image(request):
     """

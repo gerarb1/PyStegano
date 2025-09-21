@@ -1,38 +1,61 @@
-# ejemplo_uso.py
+#!/usr/bin/env python3
+"""
+Ejemplo simple de uso de PyStegano
+"""
+
 from PyStegano.core import Stegano
+from PIL import Image
 import os
 
-# --- Parte 1: Ocultar un mensaje ---
-print("--- Ocultando el mensaje ---")
-imagen_original = "test_image.png"
-mensaje_secreto = "Hola mundo."
-imagen_con_mensaje = "imagen_con_mensaje.png"
-
-try:
-    # Oculta el mensaje en la imagen
-    Stegano.hide(imagen_original, mensaje_secreto, imagen_con_mensaje)
+def main():
+    print("=== EJEMPLO SIMPLE DE PYSTEGANOGRAFIA ===\n")
     
-    if os.path.exists(imagen_con_mensaje):
-        print(f"El mensaje ha sido ocultado con éxito en '{imagen_con_mensaje}'.")
-    else:
-        print("Error: No se pudo crear la imagen de salida.")
-        
-except FileNotFoundError as e:
-    print(f"Error: {e}")
-except ValueError as e:
-    print(f"Error: {e}")
-
-print("\n--- ¡Comparación de Imágenes! ---")
-print("Puedes abrir la imagen original y la nueva. Verás que son visualmente idénticas.")
-
-# --- Parte 2: Revelar el mensaje ---
-print("\n--- Revelando el mensaje ---")
-if os.path.exists(imagen_con_mensaje):
+    # 1. Crear imagen de prueba si no existe
+    imagen_original = "test_image.png"
+    if not os.path.exists(imagen_original):
+        print("Creando imagen de prueba...")
+        img = Image.new('RGB', (100, 100), color='lightblue')
+        img.save(imagen_original)
+        print(f" Imagen creada: {imagen_original}")
+    
+    # 2. Configuración
+    mensaje = "pokemon red."
+    imagen_salida = "mensaje_oculto.png"
+    
+    print(f" Mensaje: '{mensaje}'")
+    print(f" Imagen original: {imagen_original}")
+    print(f" Imagen de salida: {imagen_salida}")
+    
+    # 3. Ocultar mensaje
+    print("\n Ocultando mensaje...")
     try:
-        mensaje_revelado = Stegano.reveal(imagen_con_mensaje)
-        print(f"Mensaje revelado: '{mensaje_revelado}'")
-    except FileNotFoundError as e:
-        print(f"Error: {e}")
-else:
-    print("La imagen con el mensaje no se encontró, no se puede revelar.")
+        Stegano.hide(imagen_original, mensaje, imagen_salida)
+        print(" Mensaje ocultado exitosamente")
+        
+        # Verificar que ambas imágenes existen
+        print(f"Original existe: {os.path.exists(imagen_original)}")
+        print(f"Con mensaje existe: {os.path.exists(imagen_salida)}")
+        
+    except Exception as e:
+        print(f" Error ocultando: {e}")
+        return
     
+    # 4. Revelar mensaje
+    print("\n Revelando mensaje...")
+    try:
+        mensaje_revelado = Stegano.reveal(imagen_salida)
+        print(f" Mensaje revelado: '{mensaje_revelado}'")
+        
+        # Verificar si coincide
+        if mensaje_revelado == mensaje:
+            print("🎉 ¡Éxito! Los mensajes coinciden perfectamente.")
+        else:
+            print("⚠️ Los mensajes no coinciden exactamente:")
+            print(f"  Original:  '{mensaje}'")
+            print(f"  Revelado:  '{mensaje_revelado}'")
+            
+    except Exception as e:
+        print(f" Error revelando: {e}")
+
+if __name__ == "__main__":
+    main()
