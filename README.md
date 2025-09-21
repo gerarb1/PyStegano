@@ -24,3 +24,22 @@ ejecutar un script para realizar pruebas de funcionamiento como ejemplo
 ```python
 python ejemplo_uso.py
 ```
+
+## Contribución
+
+Si quieres contribuir a PyStegano, por favor, sigue estos pasos:
+
+Haz un fork del repositorio.
+
+Crea una nueva branch para tu funcionalidad (git checkout -b feature/nueva-funcionalidad).
+
+Implementa tu funcionalidad y escribe los tests correspondientes.
+
+Asegúrate de que todos los tests pasen.
+
+Haz un commit de tus cambios y sube tu branch.
+
+Abre un pull request.
+
+ Licencia
+Este proyecto está bajo la Licencia MIT.
